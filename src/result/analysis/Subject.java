@@ -5,6 +5,8 @@
  */
 package result.analysis;
 
+import org.bson.Document;
+
 /**
  *
  * @author Mohammed Siddiq
@@ -17,6 +19,11 @@ public class Subject {
     int externalMarks;
     int total;
     char res;
+    Dbops dbop;
+
+    public Subject() {
+        dbop= new Dbops();
+    }
     
     void ShowSubject()
     {
@@ -27,11 +34,13 @@ public class Subject {
         System.out.println("External Marks: "+ externalMarks);
         System.out.println("total: "+ total);
         System.out.println("Result: "+ res);
-        
-        
+       
         
         
     }
-          
-    
+    Document Getdocument()
+    {
+        
+           return dbop.CreateSubjectDocument(this);
+    }
 }

@@ -8,6 +8,7 @@ package result.analysis;
 import com.sun.jmx.snmp.BerDecoder;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.Document;
 
 /**
  *
@@ -21,9 +22,12 @@ public class Student {
     String cclass;
     float percentage;
     List<Subject> result;
-
+    List<Document> resultdoc; 
+    Dbops dbop;
     Student() {
         result = new ArrayList<>();
+        resultdoc = new ArrayList<>();
+        dbop = new Dbops();
     }
 
     void fillStudent(int detail, String data) {
@@ -66,6 +70,11 @@ public class Student {
         System.out.println("class: " + cclass);
         System.out.println("percentage: " + percentage);
 
+    }
+    
+    Document Getdocument()
+    {
+        return(dbop.CreateStudentDocument(this));
     }
 
 }
