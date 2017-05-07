@@ -18,6 +18,7 @@ import com.mongodb.DBCursor;
 
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import java.util.Arrays;
 import org.bson.Document;
@@ -58,7 +59,7 @@ public class Dbops {
     }
     DBCursor Query(DBCollection collection,BasicDBObject condition)
     {
-        return collection.find(condition);
+        return (DBCursor) collection.find(condition);
     }
     
      Document CreateStudentDocument(Student stud)
