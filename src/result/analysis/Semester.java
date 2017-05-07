@@ -28,6 +28,7 @@ public class Semester {
     MongoCollection<Document> GetSemCollection(String name,MongoDatabase db)
     {
         
+        
         SemCollection = dbop.GetCollection(name, db);
         return SemCollection;
     }

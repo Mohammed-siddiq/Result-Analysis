@@ -56,6 +56,10 @@ public class Dbops {
         
         
     }
+    DBCursor Query(DBCollection collection,BasicDBObject condition)
+    {
+        return collection.find(condition);
+    }
     
      Document CreateStudentDocument(Student stud)
     {
@@ -65,6 +69,7 @@ public class Dbops {
                     .append("class", stud.cclass)
                     .append("percentage", stud.percentage)
                     .append("result", stud.resultdoc);
+            
         return doc;
         
         
@@ -87,6 +92,7 @@ public class Dbops {
                     .append("count", 1)
                     .append("info", new Document("x", 203).append("y", 102));
             collection.insertOne(doc);
+            
             
             System.out.println(collection.count());
             Document myDoc = collection.find().first();
