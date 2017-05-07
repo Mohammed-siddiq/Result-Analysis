@@ -28,7 +28,7 @@ public class Semester {
     MongoCollection<Document> GetSemCollection(String name,MongoDatabase db)
     {
         
-        SemCollection = dbop.CreateCollection(name, db);
+        SemCollection = dbop.GetCollection(name, db);
         return SemCollection;
     }
     void InsertDocument(Document doc)

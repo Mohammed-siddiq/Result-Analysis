@@ -72,9 +72,10 @@ public class Student {
 
     }
     
-    Document Getdocument()
+    Document Setdocument()
     {
         return(dbop.CreateStudentDocument(this));
     }
+    
 
 }

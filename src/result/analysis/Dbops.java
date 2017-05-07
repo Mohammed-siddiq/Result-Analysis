@@ -50,12 +50,13 @@ public class Dbops {
         
         
     }
-    MongoCollection<Document> CreateCollection(String name,MongoDatabase db)
+    MongoCollection<Document> GetCollection(String name,MongoDatabase db)
     {
         return db.getCollection(name);
         
         
     }
+    
      Document CreateStudentDocument(Student stud)
     {
             Document doc = new Document("name", stud.name)
@@ -68,6 +69,7 @@ public class Dbops {
         
         
     }
+     
      
     void CreateDb(String name) {
 

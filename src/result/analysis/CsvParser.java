@@ -64,14 +64,14 @@ public class CsvParser {
                             subj.total = Integer.parseInt(nextLine[4].trim());
                             subj.res = nextLine[5].trim().charAt(0);
                             subj.ShowSubject();
-                            stud.resultdoc.add(subj.Getdocument());
+                            stud.resultdoc.add(subj.Setdocument());
                             stud.result.add(subj);
                             //dbops : add to the result document as a document!
                         }
 
                     }
 
-                    sem.InsertDocument(stud.Getdocument());
+                    sem.InsertDocument(stud.Setdocument());
                     
                 }
 

@@ -38,7 +38,7 @@ public class Subject {
         
         
     }
-    Document Getdocument()
+    Document Setdocument()
     {
         
            return dbop.CreateSubjectDocument(this);
