@@ -5,6 +5,7 @@
  */
 package result.analysis;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -120,5 +121,65 @@ public class Analyze {
         return passpercent;
         
     }
+    float GetAverageSubject(DBCollection collection,String sub_code)
+    {
+        float average;
+        int si = GetSubjectIndex(collection, sub_code);
+        int sum=0;
+        int count=0;
+        BasicDBObject where=new BasicDBObject();
+        
+        DBCursor cur= dbop.Query(collection, where);
+        
+        while(cur.hasNext())
+        {
+            
+            int temp=0;
+            
+            
+                List<BasicDBObject> docs= (List<BasicDBObject>) cur.next().get("result");
+                
+                if(docs.size()!=0)
+                {
+                    temp=(int) docs.get(si).get("external");
+                    System.out.println(temp);
+                    count++;
+                }  
+            sum+= temp;
+        }
+        
+        return sum/count;
+    }
     
+    int GetMaxOfSubject(DBCollection collection,String sub_code)
+    {
+        int max=0;
+        int si = GetSubjectIndex(collection, sub_code);
+        BasicDBObject where=new BasicDBObject();
+        
+        DBCursor cur= dbop.Query(collection, where);
+        
+        while(cur.hasNext())
+        {
+            
+            int temp=0;
+            
+            
+                List<BasicDBObject> docs= (List<BasicDBObject>) cur.next().get("result");
+                
+                if(docs.size()!=0)
+                {
+                    temp=(int) docs.get(si).get("external");
+                    if(temp>max)
+                    {
+                        max=temp;
+                    }
+                    System.out.println(temp);
+                    
+                }  
+            
+        }
+        
+        return max;
+    }
 }

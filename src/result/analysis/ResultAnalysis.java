@@ -64,8 +64,7 @@ public class ResultAnalysis {
         DB db=mongoClient.getDB("rnsit");
         Analyze a = new Analyze(db);
         
-        a.GetDistribution((DBCollection) db.getCollection("cs_11_1_sem"));
-        a.GetSubjectPassPercent((DBCollection) db.getCollection("cs_11_1_sem"), "10MAT11");
+        System.out.println("MAX  is "+a.GetMaxOfSubject(db.getCollection("cs_11_1_sem"),"10MAT11"));
         
         
         
