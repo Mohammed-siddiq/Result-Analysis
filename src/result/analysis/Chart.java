@@ -17,12 +17,14 @@ import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.MultiplePiePlot;
 import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.util.Rotation;
+import org.jfree.util.TableOrder;
 
 /**
  *
@@ -40,31 +42,39 @@ public class Chart {
     }
 
     void perSemPerformace(String batch, String sem, String[] colleges) {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        for(String college:colleges)
+        {
+            db = mongoClient.getDB(college);
         String collection_name = "cs_" + batch + "_" + sem + "_sem";
         DBCollection collection = db.getCollection(collection_name);
-        db = mongoClient.getDB("rnsit");
-        DefaultPieDataset dataset = new DefaultPieDataset();
+        
+        
         analyz = new Analyze(db);
         double number = analyz.GetNumber(collection, "FAIL");
-        dataset.setValue("FAIL", number);
+        dataset.setValue(number,college,"FAIL");
         number = analyz.GetNumber(collection, "FIRST CLASS");
-        dataset.setValue("First Class", number);
+        dataset.setValue(number,college,"First Class");
 
         number = analyz.GetNumber(collection, "SECOND CLASS");
-        dataset.setValue("Second Class", number);
+        dataset.setValue(number,college,"Second class");
 
         number = analyz.GetNumber(collection, "FIRST CLASS WITH DISTINCTION");
-        dataset.setValue("First Class With Distinction", number);
-
-        JFreeChart pieChart = ChartFactory.createPieChart3D("Performance of " + batch + sem + " Semester", dataset, true, true, false);
-        PiePlot3D plot = (PiePlot3D) pieChart.getPlot();
-        plot.setStartAngle(290);
-        plot.setDirection(Rotation.CLOCKWISE);
-        plot.setForegroundAlpha(0.5f);
+        dataset.setValue( number,college,"First Class With Distinction");
+        
+        
+            
+        }
+        JFreeChart pieChart = ChartFactory.createMultiplePieChart("Classwise Distribution", dataset, TableOrder.BY_ROW, true, true, true);
+//        MultiplePiePlot plot = (MultiplePiePlot) pieChart.getPlot();
+//        plot.setStartAngle(290);
+//        plot.setDirection(Rotation.CLOCKWISE);
+//        plot.setForegroundAlpha(0.5f);
 
         ChartFrame frame = new ChartFrame("Semester Wise Performance of " + batch + " year", pieChart);
         frame.setVisible(true);
         frame.setSize(500, 500);
+        
 
     }
 
@@ -114,17 +124,22 @@ public class Chart {
     }
 
     void avgMarks(String batch, String sem, String[] colleges) {
-        db = mongoClient.getDB("rnsit");
-        analyz = new Analyze(db);
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        for(String college:colleges)
+        {
+            db = mongoClient.getDB(college);
+            analyz = new Analyze(db);
         String collection_name = "cs_" + batch + "_" + sem + "_sem";
         DBCollection collection = db.getCollection(collection_name);
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        
 
         String[] codes = analyz.GetSubCodes(collection);
         for (String code : codes) {
             double avg = analyz.GetAverageSubject(collection, code);
-            dataset.setValue(avg, "AVG", code);
+            dataset.setValue(avg, college, code);
         }
+        }
+        
         JFreeChart barChart = ChartFactory.createBarChart(
                 "Average in each subject",
                 "SUBJECT",
@@ -169,20 +184,27 @@ public class Chart {
     }
 
     void BatchsubjectPerformance(String batch, String sem, String[] colleges, String code) {
-        db = mongoClient.getDB("rnsit");
-        analyz = new Analyze(db);
+        
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        for(String college:colleges)
+        {
+            db = mongoClient.getDB(college);
+        analyz = new Analyze(db);
+        
         for (int i = 11; i <= 13; i++) {
             String collection_name = "cs_" + i + "_" + sem + "_sem";
             DBCollection collection = db.getCollection(collection_name);
             double passpercent = analyz.GetSubjectPassPercent(collection, code);
            // dataset.addValue(passpercent*100, "Pass %", Integer.toString(i));
-            dataset.addValue((1 - passpercent)*100, "Fail %", Integer.toString(i));
+            dataset.addValue((1 - passpercent)*100, college, Integer.toString(i));
 
         }
+            
+        }
+        
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Batch- wise performance for "+ code,
+                "Fail % for "+ code,
                 "Batch", "Percentage",
                 dataset,
                 PlotOrientation.VERTICAL,

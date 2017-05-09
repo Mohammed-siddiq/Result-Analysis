@@ -63,12 +63,11 @@ public class ResultAnalysis {
         //MongoDatabase db=mongoClient.getDatabase("rnsit");
 
         Chart ch = new Chart();
-        String [] c ={};
-        ch.semWisePerformance("13", 2,c );
-        ch.perSemPerformace("13", "1",c);
-        ch.avgMarks("13","5", c);
-        ch.subjectWisePerformance("13","5",c, "10CS56");
-        ch.BatchsubjectPerformance("13","6",c, "10CS63");
+        String [] c ={"rnsit","bnmit","bit","jssate","sjbit"};
+        
+        ch.perSemPerformace("13","6",c);
+        ch.BatchsubjectPerformance("13","6",c,"10CS65");
+        
         
 
       
