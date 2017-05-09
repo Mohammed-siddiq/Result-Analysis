@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package front_end_ra;
+package result.analysis;
 
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -58,14 +58,7 @@ public class front_end_helper {
         tf.setText("");
     }
     
-    public void hide_selection_objects(JComponent[] jcs)
-    {
-        for(JComponent jc : jcs)
-        {
-            jc.setVisible(false);
-            
-        }
-}
+
     
     public boolean validate_sub_code(String sc)
     {

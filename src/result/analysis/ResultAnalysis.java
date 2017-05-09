@@ -61,12 +61,14 @@ public class ResultAnalysis {
 //        }
         MongoClient mongoClient = new MongoClient("localhost", 27017);
         //MongoDatabase db=mongoClient.getDatabase("rnsit");
-        DB db=mongoClient.getDB("rnsit");
-        Analyze a = new Analyze(db);
-        
-        System.out.println("MAX  is "+a.GetMaxOfSubject(db.getCollection("cs_11_1_sem"),"10MAT11"));
-        
-        
+
+        Chart ch = new Chart();
+        String [] c ={};
+        ch.semWisePerformance("13", 2,c );
+        ch.perSemPerformace("13", "1",c);
+        ch.avgMarks("13","5", c);
+        ch.subjectWisePerformance("13","5",c, "10CS56");
+        ch.BatchsubjectPerformance("13","6",c, "10CS63");
         
 
       
