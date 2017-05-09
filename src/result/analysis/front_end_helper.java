@@ -62,11 +62,7 @@ public class front_end_helper {
     
     public boolean validate_sub_code(String sc)
     {
-        sc = sc.trim();
-        if(sc.matches("$10CS[5-8][5-8][1-8]^"))
-        {
-            return true;
-        }
-        return false;
+      
+        return true;
     }
 }

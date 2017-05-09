@@ -111,9 +111,9 @@ public class Analyze {
         return -1;
     }
     
-    double GetSubjectPassPercent(DBCollection collection, String sub_code)
+    double[] GetSubjectPassPercent(DBCollection collection, String sub_code)
     {
-        double passpercent;
+        double result[] = new double[2];
         int si = GetSubjectIndex(collection, sub_code);
         //code to check if the sub_code does not match
         
@@ -128,9 +128,10 @@ public class Analyze {
         where.remove(key);
         double total= dbop.Query(collection, where).count();
         
-        passpercent=(total-no_failures)/total;
+        result[0]=(total-no_failures);
+        result[1]=total;
         System.out.println(" number of failurees in "+sub_code+" "+no_failures);
-        return passpercent;
+        return result;
         
     }
     double GetAverageSubject(DBCollection collection,String sub_code)

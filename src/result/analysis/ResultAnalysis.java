@@ -63,10 +63,13 @@ public class ResultAnalysis {
         //MongoDatabase db=mongoClient.getDatabase("rnsit");
 
         Chart ch = new Chart();
-        String [] c ={"rnsit","bnmit","bit","jssate","sjbit"};
-        
-        ch.perSemPerformace("13","6",c);
-        ch.BatchsubjectPerformance("13","6",c,"10CS65");
+        String [] c ={"rnsit"};
+        //ch.batchAcrossSemesters("13", 1, c);
+        //ch.perSemPerformace("13","6",c);
+        //ch.BatchsubjectPerformance("13","6",c,"10CS65");
+        //ch.avgMarks("13", "6", c);
+        //ch.subjectWisePerformance("13", "6", c, "10CS65");
+        ch.currentPerformance(1,c);
         
         
 
