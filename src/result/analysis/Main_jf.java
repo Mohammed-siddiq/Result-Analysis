@@ -6,8 +6,11 @@
 package result.analysis;
 
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -525,7 +528,7 @@ public class Main_jf extends javax.swing.JFrame {
     }//GEN-LAST:event_main_jpPropertyChange
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-      
+
 
     }//GEN-LAST:event_jButton11ActionPerformed
 
@@ -542,32 +545,29 @@ public class Main_jf extends javax.swing.JFrame {
         String sem = jComboBox2.getSelectedItem().toString();
         List<String> colleges = new ArrayList<>();
         colleges.add("rnsit");
-       
 
-            if (jCheckBox2.isSelected()) {
-                for (int i = 0; i < jList2.getSelectedValuesList().size(); i++) {
-                    colleges.add(jList2.getSelectedValuesList().get(i).toString().toLowerCase());
-                }
-
-            }
-            if (jComboBox3.getSelectedIndex() == 0) {
-                int odev = jComboBox5.getSelectedIndex() + 1;
-                chart.currentPerformance(odev, colleges.toArray(new String[0]));
-                jProgressBar2.setVisible(false);
-            } else if (jComboBox3.getSelectedIndex() == 1) {
-                jProgressBar2.setVisible(false);
-                chart.perSemPerformace(year.substring(2), sem, colleges.toArray(new String[0]));
-
-            } else if (jComboBox3.getSelectedIndex() == 2) {
-                jProgressBar2.setVisible(false);
-                chart.avgMarks(year.substring(2), sem, colleges.toArray(new String[0]));
-
-            } else {
-                jProgressBar2.setVisible(false);
-                chart.batchAcrossSemesters(year.substring(2), colleges.toArray(new String[0]));
+        if (jCheckBox2.isSelected()) {
+            for (int i = 0; i < jList2.getSelectedValuesList().size(); i++) {
+                colleges.add(jList2.getSelectedValuesList().get(i).toString().toLowerCase());
             }
 
-        
+        }
+        if (jComboBox3.getSelectedIndex() == 0) {
+            int odev = jComboBox5.getSelectedIndex() + 1;
+            chart.currentPerformance(odev, colleges.toArray(new String[0]));
+            jProgressBar2.setVisible(false);
+        } else if (jComboBox3.getSelectedIndex() == 1) {
+            jProgressBar2.setVisible(false);
+            chart.perSemPerformace(year.substring(2), sem, colleges.toArray(new String[0]));
+
+        } else if (jComboBox3.getSelectedIndex() == 2) {
+            jProgressBar2.setVisible(false);
+            chart.avgMarks(year.substring(2), sem, colleges.toArray(new String[0]));
+
+        } else {
+            jProgressBar2.setVisible(false);
+            chart.batchAcrossSemesters(year.substring(2), colleges.toArray(new String[0]));
+        }
 
 
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -596,6 +596,7 @@ public class Main_jf extends javax.swing.JFrame {
             } else {
                 jProgressBar1.setVisible(false);
                 chart.BatchsubjectPerformance(year.substring(2), sem, colleges.toArray(new String[0]), code);
+                
             }
 
         }
@@ -625,6 +626,14 @@ public class Main_jf extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        String command = "python /c start python C:\\Users\\AFZAAL\\PycharmProjects\\FastVtuScraper\\Main.py";
+        try {
+            Process p = Runtime.getRuntime().exec(command);
+        } catch (IOException ex) {
+            Logger.getLogger(Main_jf.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField6KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyReleased
@@ -724,7 +733,7 @@ public class Main_jf extends javax.swing.JFrame {
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
-          helper.change_panel(result_analysis_main_jp, home_jp);
+        helper.change_panel(result_analysis_main_jp, home_jp);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     /**
@@ -739,7 +748,7 @@ public class Main_jf extends javax.swing.JFrame {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+                    javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
                     break;
                 }
             }

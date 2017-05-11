@@ -12,10 +12,20 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.PieSectionLabelGenerator;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
@@ -86,6 +96,7 @@ public class Chart {
         ChartFrame frame = new ChartFrame("Semester Wise Performance of " + batch + " year", pieChart);
         frame.setVisible(true);
         frame.setSize(500, 500);
+        save_jpeg(pieChart);
 
     }
 
@@ -127,6 +138,7 @@ public class Chart {
         ChartFrame frame = new ChartFrame("Semester Wise Performance of " + batch + " year", barChart);
         frame.setVisible(true);
         frame.setSize(500, 500);
+        save_jpeg(barChart);
     }
 
     void avgMarks(String batch, String sem, String[] colleges) {
@@ -161,7 +173,7 @@ public class Chart {
         ChartFrame frame = new ChartFrame("Subject-wise average marks of 20" + batch + " batch " + sem + "th semester", barChart);
         frame.setVisible(true);
         frame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
-
+        save_jpeg(barChart);
     }
 
     void subjectWisePerformance(String batch, String sem, String[] colleges, String code) {
@@ -196,6 +208,7 @@ public class Chart {
         ChartFrame frame = new ChartFrame("Subject Performance of " + batch + " year " + sem + " Semester ", pieChart);
         frame.setVisible(true);
         frame.setSize(500, 500);
+        save_jpeg(pieChart);
 
     }
 
@@ -226,6 +239,7 @@ public class Chart {
         ChartFrame frame = new ChartFrame("Subject Performance of 20" + batch + " year " + sem + " Semester ", barChart);
         frame.setVisible(true);
         frame.setSize(500, 500);
+        save_jpeg(barChart);
 
     }
 
@@ -265,7 +279,33 @@ public class Chart {
         ChartFrame frame = new ChartFrame("Current performance ", barChart);
         frame.setVisible(true);
         frame.setSize(500, 500);
+        save_jpeg(barChart);
 
+    }
+
+    private void save_jpeg(JFreeChart chart)  {
+        BufferedImage objBufferedImage = chart.createBufferedImage(1200, 900);
+        ByteArrayOutputStream bas = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(objBufferedImage, "png", bas);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        byte[] byteArray = bas.toByteArray();
+        InputStream in = new ByteArrayInputStream(byteArray);
+        BufferedImage image=null;
+        try {
+            image = ImageIO.read(in);
+        } catch (IOException ex) {
+            Logger.getLogger(Chart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        File outputfile = new File("Analysis files\\"+ chart.getTitle().toString()+".png");
+        try {
+            ImageIO.write(image, "png", outputfile);
+        } catch (IOException ex) {
+            Logger.getLogger(Chart.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
